@@ -1,6 +1,6 @@
 <template>
-  <div>
-
+  <div id="app">
+    <editable-input modelid='121' value='4335' inputname='price' url='/path/to/update'/>
   </div>
 </template>
 
@@ -20,8 +20,9 @@ export default {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  display: flex;
+  justify-content: center;
+  flex-direction: row;
   margin-top: 60px;
 }
 </style>
