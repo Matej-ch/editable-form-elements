@@ -20,8 +20,8 @@ export default {
     props: {
         value: String,
         url: String,
-        modelid: String,
-        inputname: String
+        inputname: String,
+        inputs: Object
     },
     data() {
         return {
@@ -44,8 +44,12 @@ export default {
         submit: function () {
             const form = new FormData();
             form.append(this.inputname,this.editableValue);
-            form.append('hasEditable','1');
-            form.append('editableKey',this.modelid);
+
+            let inputs = this.inputs;
+            Object.keys(inputs).forEach(function (index) {
+                form.append(index,inputs[index]);
+            });
+
             this.$http.post(this.url,form)
                 .then(response => {
                     if(response.data.success === false) {

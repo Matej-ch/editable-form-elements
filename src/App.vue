@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <editable-input modelid='121' value='4335' inputname='price' url='/path/to/update'/>
+    <editable-input :inputs="{modelid:'121',isEditable:1}" value='4335' inputname='price' url='/path/to/update'/>
   </div>
 </template>
 

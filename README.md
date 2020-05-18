@@ -2,12 +2,12 @@
 
 ```html
 
-<editable-input modelid='121' value='6900' inputname='price' url='/path/to/update'/>
+<editable-input  :inputs="{modelid:121,isEditable:1}" value='6900' inputname='price' url='/path/to/update'/>
 
 ```
 
 `url` url for updating column
 
-`inputname` name of input for form 
+`inputs` object of additional form data
 
 `value` value of column
