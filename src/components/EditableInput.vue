@@ -20,9 +20,10 @@ export default {
     props: {
         value: String,
         url: String,
-        inputname: String,
+        inputName: String,
         inputs: Object,
-        displayValue: {type: String, default:'(not set)'}
+        displayValue: {type: String, default:'(not set)'},
+        defaultShowInput: {type: Boolean, default: false}
     },
     data() {
         return {
@@ -30,6 +31,9 @@ export default {
             active:false,
             errorMsg: ''
         }
+    },
+    mounted: function () {
+        if(this.defaultShowInput) { this.active = true; }
     },
     methods: {
         showInput: function () {
@@ -44,7 +48,7 @@ export default {
         },
         submit: function () {
             const form = new FormData();
-            form.append(this.inputname,this.editableValue);
+            form.append(this.inputName,this.editableValue);
 
             let inputs = this.inputs;
             Object.keys(inputs).forEach(function (index) {
@@ -60,7 +64,7 @@ export default {
                     }
                 });
         }
-    }
+    },
 }
 </script>
 
@@ -77,9 +81,7 @@ export default {
     }
 
     .btn-wrapper {
-        width: 100%;
         display: flex;
-        justify-content: space-between;
         flex-direction: row;
     }
     .small-form-wrapper {
@@ -89,7 +91,6 @@ export default {
     }
     .form-control {
         display: block;
-        width: 100%;
         height: 34px;
         padding: 4px 8px;
         font-size: 1em;
