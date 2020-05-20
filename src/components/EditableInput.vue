@@ -1,6 +1,6 @@
 <template>
     <div class='small-form-wrapper'>
-        <div @click="showInput" v-show="!active" class="editable">{{editableValue}}</div>
+        <div @click="showInput" v-show="!active" class="editable">{{editableValue || displayValue}}</div>
         <input type="text" v-model="editableValue" v-show="active" class="form-control" ref="editableInput">
         <div class="btn-wrapper">
             <button v-show="active" class="btn btn-primary" @click="submit">
@@ -21,7 +21,8 @@ export default {
         value: String,
         url: String,
         inputname: String,
-        inputs: Object
+        inputs: Object,
+        displayValue: {type: String, default:'(not set)'}
     },
     data() {
         return {
