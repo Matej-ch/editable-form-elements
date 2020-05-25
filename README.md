@@ -1,4 +1,4 @@
-# editable-column
+# Editable column
 
 ```html
 
@@ -17,3 +17,5 @@
 `display-value` what to show if value is empty, default is _(not-set)_
 
 `default-show-input` whether to show input on load, default is _false_
+
+![editable input](editable.jpg)
