@@ -12,7 +12,9 @@
 
 `inputs` object of additional form data
 
-`value` value of column
+`value` value of column, if value is object
+
+`options` if is object then, select is created
 
 `display-value` what to show if value is empty, default is _(not-set)_
 

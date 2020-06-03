@@ -1,7 +1,17 @@
 <template>
     <div class='small-form-wrapper'>
         <div @click="showInput" v-show="!active" class="editable">{{editableValue || displayValue}}</div>
-        <input type="text" v-model="editableValue" v-show="active" class="form-control" ref="editableInput">
+
+        <div v-if="!options">
+            <input type="text" v-model="editableValue" v-show="active" class="form-control" ref="editableInput">
+        </div>
+        <div v-else>
+            <select v-show="active" v-model="editableValue" class="form-control">
+                <option value="">Choose...</option>
+                <option v-for="(v,i) in options" :key="options[i]" :value="i">{{v}}</option>
+            </select>
+        </div>
+
         <div class="btn-wrapper">
             <button v-show="active" class="btn btn-primary" @click="submit">
                 <b-icon-check></b-icon-check>
@@ -19,6 +29,7 @@ export default {
   name: 'EditableInput',
     props: {
         value: String,
+        options: {type: Object, default:null},
         url: String,
         inputName: String,
         inputs: Object,
@@ -39,7 +50,10 @@ export default {
         showInput: function () {
             this.active = true;
             this.$nextTick(() => {
-                this.$refs.editableInput.select();
+                if(this.$refs.editableInput) {
+                    this.$refs.editableInput.select();
+                }
+
             })
         },
         deactivate: function () {
