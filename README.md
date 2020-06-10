@@ -1,6 +1,4 @@
-# Editable column
-
-[![Dependabot Status][dependabot-status]][dependabot]
+# Editable column [![Dependabot Status][dependabot-status]][dependabot]
 
 ```html
 
