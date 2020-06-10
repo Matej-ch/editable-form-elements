@@ -1,5 +1,7 @@
 # Editable column
 
+[![Dependabot Status][dependabot-status]][dependabot]
+
 ```html
 
 <editable-input display-value="(set...)" :inputs="{modelid:121,isEditable:1}" value='6900' input-name='price' url='/path/to/update'/>
