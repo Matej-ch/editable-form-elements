@@ -1,4 +1,6 @@
-# Editable column [![Dependabot Status][dependabot-status]][dependabot]
+# Editable column 
+
+[![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
 
 ```html
 
