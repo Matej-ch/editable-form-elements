@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <editable-input :inputs="{modelid:'121',isEditable:1}" value='editable value' input-name='price' url='/path/to/update'/>
+    <editable-input :inputs="{modelid:'25',isEditable:1}" value='editable value' input-name='price' url='/path/to/update'/>
 
     <div class="w-full"></div>
 
@@ -12,7 +12,7 @@
 
     <div class="w-full"></div>
 
-    <editable-input :inputs="{modelid:'121',isEditable:1}" value="SK" :options='{SK:"Slovakia",CZ:"Czech republic",PL:"Poland"}' input-name='price' url='/path/to/update'/>
+    <editable-input :inputs="{modelid:'356',isEditable:1}" value="SK" :options='{SK:"Slovakia",CZ:"Czech republic",PL:"Poland"}' input-name='price' url='/path/to/update'/>
   </div>
 </template>
 
