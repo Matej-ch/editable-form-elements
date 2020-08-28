@@ -1,12 +1,14 @@
 <template>
     <div class='small-form-wrapper'>
+
         <div @click="showInput" v-show="!active" class="editable">{{editableValue || displayValue}}</div>
 
         <div v-if="!options">
             <input type="text" v-model="editableValue" v-show="active" class="form-control" ref="editableInput">
         </div>
+
         <div v-else>
-            <select v-show="active" v-model="editableValue" class="form-control">
+            <select @change="getSelectText" v-show="active" v-model="editableValue" class="form-control" ref="selectDropdown">
                 <option value="">Choose...</option>
                 <option v-for="(v,i) in options" :key="options[i]" :value="i">{{v}}</option>
             </select>
@@ -40,15 +42,39 @@ export default {
         return {
             editableValue: this.value,
             active:false,
-            errorMsg: ''
+            errorMsg: '',
+            selectText: null,
         }
     },
     mounted: function () {
         if(this.defaultShowInput) { this.active = true; }
+        if(this.$refs.selectDropdown) {
+            this.valueFromSelect();
+        }
     },
     methods: {
+        getSelectText: function () {
+            this.selectText = this.$refs.selectDropdown.options[this.$refs.selectDropdown.selectedIndex].text;
+        },
+        valueFromSelect: function () {
+            let optionsCollection = Array.from(this.$refs.selectDropdown.options);
+            let selectedOption = optionsCollection.find(option => {
+                return option.value === this.value;
+            });
+            this.editableValue = selectedOption.text;
+        },
         showInput: function () {
             this.active = true;
+
+            if(this.$refs.selectDropdown) {
+                for (let i = 0; i < this.$refs.selectDropdown.options.length; i++) {
+                    if (this.$refs.selectDropdown.options[i].text === this.editableValue) {
+                        this.editableValue = this.$refs.selectDropdown.options[i].value;
+                        break;
+                    }
+                }
+            }
+
             this.$nextTick(() => {
                 if(this.$refs.editableInput) {
                     this.$refs.editableInput.select();
@@ -58,7 +84,11 @@ export default {
         },
         deactivate: function () {
             this.active = false;
-            this.editableValue = this.value;
+            if(this.$refs.selectDropdown) {
+                this.valueFromSelect();
+            } else {
+                this.editableValue = this.value;
+            }
         },
         submit: function () {
             const form = new FormData();
@@ -75,6 +105,7 @@ export default {
                         this.$data.errorMsg = response.data.message;
                     } else {
                         this.active = false;
+                        this.editableValue = this.selectText;
                     }
                 });
         }
