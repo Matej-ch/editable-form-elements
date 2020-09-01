@@ -105,7 +105,9 @@ export default {
                         this.$data.errorMsg = response.data.message;
                     } else {
                         this.active = false;
-                        this.editableValue = this.selectText;
+                        if(this.selectText) {
+                            this.editableValue = this.selectText;
+                        }
                     }
                 });
         }
