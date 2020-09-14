@@ -4,7 +4,7 @@
         <div @click="showInput" v-show="!active" class="editable">{{editableValue || displayValue}}</div>
 
         <div v-if="!options">
-            <input type="text" v-model="editableValue" v-show="active" class="form-control" ref="editableInput">
+            <input type="text" @keyup.enter="submit" v-model="editableValue" v-show="active" class="form-control" ref="editableInput">
         </div>
 
         <div v-else>
