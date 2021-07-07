@@ -1,15 +1,10 @@
-import Vue from 'vue'
-import App from './App.vue'
-import axios from 'axios'
-import { BootstrapVueIcons } from 'bootstrap-vue'
-import 'bootstrap-vue/dist/bootstrap-vue-icons.min.css'
+import { createApp } from 'vue';
+import App from './App.vue';
+import axios from 'axios';
 
-Vue.use(BootstrapVueIcons)
+const app = createApp(App);
 
-Vue.prototype.$http = axios
+app.config.globalProperties.$http = axios;
 
-Vue.config.productionTip = false
-
-new Vue({
-  render: h => h(App),
-}).$mount('#app')
+app
+    .mount('#app')

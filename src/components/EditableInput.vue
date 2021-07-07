@@ -1,32 +1,35 @@
 <template>
     <div class='small-form-wrapper'>
 
-        <div @click="showInput" v-show="!active" class="editable">{{editableValue || displayValue}}</div>
+        <div @click="showInput" v-show="!state.active" class="editable">{{state.editableValue || displayValue}}</div>
 
         <div v-if="!options">
-            <input type="text" @keyup.enter="submit" v-model="editableValue" v-show="active" class="form-control" ref="editableInput">
+            <input type="text" @keyup.enter="submit" v-model="state.editableValue" v-show="state.active" class="form-control" ref="editableInput">
         </div>
 
         <div v-else>
-            <select @change="getSelectText" v-show="active" v-model="editableValue" class="form-control" ref="selectDropdown">
+            <select @change="getSelectText" v-show="state.active" v-model="state.editableValue" class="form-control" ref="selectDropdown">
                 <option value="">Choose...</option>
                 <option v-for="(v,i) in options" :key="options[i]" :value="i">{{v}}</option>
             </select>
         </div>
 
         <div class="btn-wrapper">
-            <button v-show="active" class="btn btn-primary" @click="submit">
-                <b-icon-check></b-icon-check>
+            <button v-show="state.active" class="btn btn-primary" @click="submit">
+                &#x2713;
             </button>
-            <button v-show="active" class="btn btn-default" @click="deactivate">
-                <b-icon-x></b-icon-x>
+            <button v-show="state.active" class="btn btn-default" @click="deactivate">
+                &#215;
             </button>
         </div>
-        <div v-show="active">{{errorMsg}}</div>
+        <div v-show="state.active">{{ state.errorMsg }}</div>
     </div>
 </template>
 
 <script>
+
+import {onMounted, reactive,ref,nextTick} from "vue";
+
 export default {
   name: 'EditableInput',
     props: {
@@ -38,79 +41,89 @@ export default {
         displayValue: {type: String, default:'(not set)'},
         defaultShowInput: {type: Boolean, default: false}
     },
-    data() {
-        return {
-            editableValue: this.value,
+
+    setup(props) {
+
+        const editableInput = ref(null)
+        const selectDropdown = ref(null)
+
+        const state = reactive({
+            editableValue: props.value,
             active:false,
             errorMsg: '',
             selectText: null,
-        }
-    },
-    mounted: function () {
-        if(this.defaultShowInput) { this.active = true; }
-        if(this.$refs.selectDropdown) {
-            this.valueFromSelect();
-        }
-    },
-    methods: {
-        getSelectText: function () {
-            this.selectText = this.$refs.selectDropdown.options[this.$refs.selectDropdown.selectedIndex].text;
-        },
-        valueFromSelect: function () {
-            let optionsCollection = Array.from(this.$refs.selectDropdown.options);
-            let selectedOption = optionsCollection.find(option => {
-                return option.value === this.value;
-            });
-            this.editableValue = selectedOption.text;
-        },
-        showInput: function () {
-            this.active = true;
+        });
 
-            if(this.$refs.selectDropdown) {
-                for (let i = 0; i < this.$refs.selectDropdown.options.length; i++) {
-                    if (this.$refs.selectDropdown.options[i].text === this.editableValue) {
-                        this.editableValue = this.$refs.selectDropdown.options[i].value;
+        onMounted(() => {
+            if(props.defaultShowInput) { state.active = true; }
+            if(selectDropdown.value) {
+                valueFromSelect();
+            }
+        })
+
+        function valueFromSelect() {
+            let optionsCollection = Array.from(selectDropdown.value.options);
+            let selectedOption = optionsCollection.find(option => {
+                return option.value === props.value;
+            });
+            state.editableValue = selectedOption.text;
+        }
+
+        function getSelectText() {
+            state.selectText = selectDropdown.value.options[selectDropdown.value.selectedIndex].text;
+        }
+
+        function deactivate() {
+            state.active = false;
+            if(selectDropdown.value) {
+                valueFromSelect();
+            } else {
+                state.editableValue = props.value;
+            }
+        }
+
+        function submit() {
+            const form = new FormData();
+            form.append(props.inputName,state.editableValue);
+
+            let inputs = props.inputs;
+            Object.keys(inputs).forEach(function (index) {
+                form.append(index,inputs[index]);
+            });
+
+            this.$http.post(props.url,form)
+                .then(response => {
+                    if(response.data.success === false) {
+                        state.errorMsg = response.data.message;
+                    } else {
+                        state.active = false;
+                        if(state.selectText) {
+                            state.editableValue = state.selectText;
+                        }
+                    }
+                });
+        }
+
+        function showInput() {
+            state.active = true;
+
+            if(selectDropdown.value) {
+                for (let i = 0; i < selectDropdown.value.options.length; i++) {
+                    if (selectDropdown.value.options[i].text === state.editableValue) {
+                        state.editableValue = selectDropdown.value.options[i].value;
                         break;
                     }
                 }
             }
 
-            this.$nextTick(() => {
-                if(this.$refs.editableInput) {
-                    this.$refs.editableInput.select();
+            nextTick(() => {
+                if(editableInput.value) {
+                    editableInput.value.select();
                 }
-
             })
-        },
-        deactivate: function () {
-            this.active = false;
-            if(this.$refs.selectDropdown) {
-                this.valueFromSelect();
-            } else {
-                this.editableValue = this.value;
-            }
-        },
-        submit: function () {
-            const form = new FormData();
-            form.append(this.inputName,this.editableValue);
-
-            let inputs = this.inputs;
-            Object.keys(inputs).forEach(function (index) {
-                form.append(index,inputs[index]);
-            });
-
-            this.$http.post(this.url,form)
-                .then(response => {
-                    if(response.data.success === false) {
-                        this.$data.errorMsg = response.data.message;
-                    } else {
-                        this.active = false;
-                        if(this.selectText) {
-                            this.editableValue = this.selectText;
-                        }
-                    }
-                });
         }
+
+        return { state,getSelectText,deactivate,submit,showInput };
     },
 }
 </script>
@@ -152,8 +165,8 @@ export default {
     }
     .btn {
         display: inline-block;
+        font-weight: bold;
         margin-bottom: 0;
-        font-weight: normal;
         text-align: center;
         white-space: nowrap;
         vertical-align: middle;
@@ -163,7 +176,7 @@ export default {
         background-image: none;
         border: 1px solid transparent;
         padding: 6px 12px;
-        font-size: 14px;
+        font-size: 1em;
         line-height: 1.42857143;
         border-radius: 4px;
         -webkit-user-select: none;

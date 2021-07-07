@@ -1,6 +1,6 @@
 # Editable column 
 
-[![Dependabot](https://badgen.net/badge/Dependabot/enabled/green?icon=dependabot)](https://dependabot.com/)
+### This is for vue js 3
 
 ```html
 
