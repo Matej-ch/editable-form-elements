@@ -1,134 +1,154 @@
 <template>
-    <div class='small-form-wrapper'>
-
-        <div @click="showInput" v-show="!state.active" class="editable">{{state.editableValue || displayValue}}</div>
-
-        <div v-if="!options">
-            <input type="text" @keyup.enter="submit" v-model="state.editableValue" v-show="state.active" class="form-control" ref="editableInput">
-        </div>
-
-        <div v-else>
-            <select @change="getSelectText" v-show="state.active" v-model="state.editableValue" class="form-control" ref="selectDropdown">
-                <option value="">Choose...</option>
-                <option v-for="(v,i) in options" :key="options[i]" :value="i">{{v}}</option>
-            </select>
-        </div>
-
-        <div class="btn-wrapper">
-            <button v-show="state.active" class="btn btn-primary" @click="submit">
-                &#x2713;
-            </button>
-            <button v-show="state.active" class="btn btn-default" @click="deactivate">
-                &#215;
-            </button>
-        </div>
-        <div v-show="state.active">{{ state.errorMsg }}</div>
+  <div class="small-form-wrapper">
+    <div
+      v-show="!state.active"
+      class="editable"
+      @click="showInput"
+    >
+      {{ state.editableValue || displayValue }}
     </div>
+
+    <div v-if="!options">
+      <input
+        v-show="state.active"
+        ref="editableInput"
+        v-model="state.editableValue"
+        type="text"
+        class="form-control"
+        @keyup.enter="submit"
+      >
+    </div>
+
+    <div v-else>
+      <select
+        v-show="state.active"
+        ref="selectDropdown"
+        v-model="state.editableValue"
+        class="form-control"
+        @change="getSelectText"
+      >
+        <option value="">
+          Choose...
+        </option>
+        <option
+          v-for="(v,i) in options"
+          :key="options[i]"
+          :value="i"
+        >
+          {{ v }}
+        </option>
+      </select>
+    </div>
+
+    <div class="btn-wrapper">
+      <button
+        v-show="state.active"
+        class="btn btn-primary"
+        @click="submit"
+      >
+        &#x2713;
+      </button>
+      <button
+        v-show="state.active"
+        class="btn btn-default"
+        @click="deactivate"
+      >
+        &#215;
+      </button>
+    </div>
+    <div v-show="state.active">
+      {{ state.errorMsg }}
+    </div>
+  </div>
 </template>
 
-<script>
+<script setup>
 
 import {onMounted, reactive,ref,nextTick} from "vue";
 
-export default {
-  name: 'EditableInput',
-    props: {
-        value: String,
-        options: {type: Object, default:null},
-        url: String,
-        inputName: String,
-        inputs: Object,
-        displayValue: {type: String, default:'(not set)'},
-        defaultShowInput: {type: Boolean, default: false}
-    },
+const emit = defineEmits(['posted'])
 
-    setup(props) {
+const props = defineProps({
+    value:  {type:String, default: ''},
+    options: {type: Object, default:null},
+    url: {type:String , default: ''},
+    inputName: {type:String,default: 'editable-input'},
+    inputs: {type:Object,default: null},
+    displayValue: {type: String, default:'(not set)'},
+    defaultShowInput: {type: Boolean, default: false}
+});
 
-        const editableInput = ref(null)
-        const selectDropdown = ref(null)
+const editableInput = ref(null)
+const selectDropdown = ref(null)
 
-        const state = reactive({
-            editableValue: props.value,
-            active:false,
-            errorMsg: '',
-            selectText: null,
-        });
+const state = reactive({
+    editableValue: props.value,
+    active:false,
+    errorMsg: '',
+    selectText: null,
+});
 
-        onMounted(() => {
-            if(props.defaultShowInput) { state.active = true; }
-            if(selectDropdown.value) {
-                valueFromSelect();
-            }
-        })
+onMounted(() => {
+    if(props.defaultShowInput) { state.active = true; }
+    if(selectDropdown.value) {
+        valueFromSelect();
+    }
+})
 
-        function valueFromSelect() {
-            let optionsCollection = Array.from(selectDropdown.value.options);
-            let selectedOption = optionsCollection.find(option => {
-                return option.value === props.value;
-            });
-            state.editableValue = selectedOption.text;
-        }
-
-        function getSelectText() {
-            state.selectText = selectDropdown.value.options[selectDropdown.value.selectedIndex].text;
-        }
-
-        function deactivate() {
-            state.active = false;
-            if(selectDropdown.value) {
-                valueFromSelect();
-            } else {
-                state.editableValue = props.value;
-            }
-        }
-
-        function submit() {
-            const form = new FormData();
-            form.append(props.inputName,state.editableValue);
-
-            let inputs = props.inputs;
-            Object.keys(inputs).forEach(function (index) {
-                form.append(index,inputs[index]);
-            });
-
-            this.$http.post(props.url,form)
-                .then(response => {
-                    if(response.data.success === false) {
-                        state.errorMsg = response.data.message;
-                    } else {
-                        state.active = false;
-                        if(state.selectText) {
-                            state.editableValue = state.selectText;
-                        }
-                    }
-                });
-        }
-
-        function showInput() {
-            state.active = true;
-
-            if(selectDropdown.value) {
-                for (let i = 0; i < selectDropdown.value.options.length; i++) {
-                    if (selectDropdown.value.options[i].text === state.editableValue) {
-                        state.editableValue = selectDropdown.value.options[i].value;
-                        break;
-                    }
-                }
-            }
-
-            nextTick(() => {
-                if(editableInput.value) {
-                    editableInput.value.select();
-                }
-            })
-        }
-
-        return { state,getSelectText,deactivate,submit,showInput };
-    },
+function valueFromSelect() {
+    let optionsCollection = Array.from(selectDropdown.value.options);
+    let selectedOption = optionsCollection.find(option => {
+        return option.value === props.value;
+    });
+    state.editableValue = selectedOption.text;
 }
+
+function getSelectText() {
+    state.selectText = selectDropdown.value.options[selectDropdown.value.selectedIndex].text;
+}
+
+function deactivate() {
+    state.active = false;
+    if(selectDropdown.value) {
+        valueFromSelect();
+    } else {
+        state.editableValue = props.value;
+    }
+}
+
+function submit() {
+    const form = new FormData();
+    form.append(props.inputName,state.editableValue);
+
+    let inputs = props.inputs;
+    Object.keys(inputs).forEach(function (index) {
+        form.append(index,inputs[index]);
+    });
+
+    emit('posted',form)
+}
+
+function showInput() {
+    state.active = true;
+
+    if(selectDropdown.value) {
+        for (let i = 0; i < selectDropdown.value.options.length; i++) {
+            if (selectDropdown.value.options[i].text === state.editableValue) {
+                state.editableValue = selectDropdown.value.options[i].value;
+                break;
+            }
+        }
+    }
+
+    nextTick(() => {
+        if(editableInput.value) {
+            editableInput.value.select();
+        }
+    })
+}
+
 </script>
 
-<!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped>
     .editable {
         color: #428bca;

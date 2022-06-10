@@ -1,30 +1,46 @@
 <template>
   <div id="app">
-    <editable-input :inputs="{modelid:'25',isEditable:1}" value='editable value' input-name='price' url='/path/to/update'/>
+    <editable-input
+      :inputs="{modelid:'25',isEditable:1}"
+      value="editable value"
+      input-name="price"
+      url="/path/to/update"
+    />
 
-    <div class="w-full"></div>
+    <div class="w-full" />
 
-    <editable-input :default-show-input=true :inputs="{modelid:'121',isEditable:1}" value='' input-name='price' url='/path/to/update'/>
+    <editable-input
+      :default-show-input="true"
+      :inputs="{modelid:'121',isEditable:1}"
+      value=""
+      input-name="price"
+      url="/path/to/update"
+    />
 
-    <div class="w-full"></div>
+    <div class="w-full" />
 
-    <editable-input :inputs="{modelid:'121',isEditable:1}" value='' input-name='price' url='/path/to/update'/>
+    <editable-input
+      :inputs="{modelid:'121',isEditable:1}"
+      value=""
+      input-name="price"
+      url="/path/to/update"
+    />
 
-    <div class="w-full"></div>
+    <div class="w-full" />
 
-    <editable-input :inputs="{modelid:'356',isEditable:1}" value="SK" :options='{SK:"Slovakia",CZ:"Czech republic",PL:"Poland"}' input-name='price' url='/path/to/update'/>
+    <editable-input
+      :inputs="{modelid:'356',isEditable:1}"
+      value="SK"
+      :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
+      input-name="price"
+      url="/path/to/update"
+    />
   </div>
 </template>
 
-<script>
+<script setup>
 import EditableInput from './components/EditableInput.vue'
 
-export default {
-  name: 'App',
-  components: {
-    EditableInput
-  }
-}
 </script>
 
 <style>
