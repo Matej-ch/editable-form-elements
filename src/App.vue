@@ -4,7 +4,6 @@
       :inputs="{modelid:'25',isEditable:1}"
       value="editable value"
       input-name="price"
-      url="/path/to/update"
     />
 
     <div class="w-full" />
@@ -14,7 +13,6 @@
       :inputs="{modelid:'121',isEditable:1}"
       value=""
       input-name="price"
-      url="/path/to/update"
     />
 
     <div class="w-full" />
@@ -23,7 +21,6 @@
       :inputs="{modelid:'121',isEditable:1}"
       value=""
       input-name="price"
-      url="/path/to/update"
     />
 
     <div class="w-full" />
@@ -33,7 +30,6 @@
       value="SK"
       :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
       input-name="price"
-      url="/path/to/update"
     />
   </div>
 </template>
