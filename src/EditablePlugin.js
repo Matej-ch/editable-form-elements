@@ -1,4 +1,3 @@
-import {App} from "vue";
 import {EditableInput} from "./components";
 
 export default {

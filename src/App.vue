@@ -35,7 +35,7 @@
 </template>
 
 <script setup>
-import EditableInput from './components/EditableInput.vue'
+//import EditableInput from './components/EditableInput.vue'
 
 </script>
 
