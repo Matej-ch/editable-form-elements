@@ -2,10 +2,19 @@
   "name": "@mtjch/editable-column",
   "version": "1.0.0",
   "license": "MIT",
-  "main": "./dist/editable-input.cjs.js",
-  "module": "./dist/editable-input.esm-bundler.js",
-  "browser": "./dist/editable-input.browser.js",
-  "unpkg": "./dist/editable-input.browser.js",
+  "type": "module",
+  "main": "dist/index.cjs",
+  "module": "dist/index.js",
+  "exports": {
+    ".": "./dist/index.js",
+    "./styles.css": "./dist/style.css"
+  },
+  "browser": {
+    "./styles.css": "./dist/style.css"
+  },
+  "files": [
+    "dist"
+  ],
   "scripts": {
     "dev": "vite",
     "build": "vite build",

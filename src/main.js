@@ -1,9 +1,9 @@
 import { createApp } from 'vue';
 import App from './App.vue';
-import EditablePlugin from "./EditablePlugin";
+import EditableInputPlugin from "./EditableInputPlugin";
 
 const app = createApp(App);
 
-app.use(EditablePlugin);
+app.use(EditableInputPlugin);
 
 app.mount('#app')

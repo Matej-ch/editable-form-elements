@@ -34,11 +34,6 @@
   </div>
 </template>
 
-<script setup>
-//import EditableInput from './components/EditableInput.vue'
-
-</script>
-
 <style>
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
