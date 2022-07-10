@@ -31,6 +31,14 @@
       :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
       input-name="price"
     />
+
+      <editable-textarea  input-name="text-input">
+          This is text in textarea
+      </editable-textarea>
+
+      <editable-textarea input-name="text-input"  :default-show-input="true">
+          This is text in textarea 2
+      </editable-textarea>
   </div>
 </template>
 
@@ -51,3 +59,9 @@
     margin: 15px;
   }
 </style>
+<script>
+import EditableTextarea from "./components/EditableTextarea.vue";
+export default {
+    components: {EditableTextarea}
+}
+</script>
