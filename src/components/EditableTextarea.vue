@@ -1,12 +1,17 @@
 <template>
     <div class="small-form-wrapper">
-        <div v-show="!state.active" class="editable" @click="showInput">
-            <slot></slot>
+
+        <div
+            v-show="!state.active"
+            class="editable"
+            @click="showInput"
+        >
+            {{ state.editableValue || displayValue }}
         </div>
 
-        <div v-if="!state.active">
-            <textarea>
-                {{state.editableValue}}
+        <div>
+            <textarea v-model="state.editableValue" class="form-control" v-show="state.active"  ref="editableInput">
+
             </textarea>
         </div>
 
@@ -35,6 +40,10 @@ const state = reactive({
     errorMsg: '',
     selectText: null,
 });
+
+onMounted(() => {
+    if(props.defaultShowInput) { state.active = true; }
+})
 
 function showInput() {
     state.active = true;

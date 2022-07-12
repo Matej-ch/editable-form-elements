@@ -32,13 +32,9 @@
       input-name="price"
     />
 
-      <editable-textarea  input-name="text-input">
-          This is text in textarea
-      </editable-textarea>
+      <editable-textarea  value="This is text in textarea"  input-name="text-input" />
 
-      <editable-textarea input-name="text-input"  :default-show-input="true">
-          This is text in textarea 2
-      </editable-textarea>
+      <editable-textarea value="This is text in textarea 2" input-name="text-input"  :default-show-input=true />
   </div>
 </template>
 
