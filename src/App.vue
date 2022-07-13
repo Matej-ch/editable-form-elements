@@ -1,63 +1,67 @@
 <template>
-  <div id="app">
-    <editable-input
-      :inputs="{modelid:'25',isEditable:1}"
-      value="editable value"
-      input-name="price"
-    />
+    <div id="app">
+        <editable-input
+            value="editable value"
+            input-name="price"
+        />
 
-    <div class="w-full" />
+        <div class="w-full"/>
 
-    <editable-input
-      :default-show-input="true"
-      :inputs="{modelid:'121',isEditable:1}"
-      value=""
-      input-name="price"
-    />
+        <editable-input
+            :default-show-input=true
+            value=""
+            input-name="price"
+        />
 
-    <div class="w-full" />
+        <div class="w-full"/>
 
-    <editable-input
-      :inputs="{modelid:'121',isEditable:1}"
-      value=""
-      input-name="price"
-    />
+        <editable-input
+            value=""
+            input-name="price"
+        />
 
-    <div class="w-full" />
+        <div class="w-full"/>
 
-    <editable-input
-      :inputs="{modelid:'356',isEditable:1}"
-      value="SK"
-      :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
-      input-name="price"
-    />
+        <editable-select
+            value="SK"
+            :default-show-input=true
+            :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
+            input-name="price"
+        />
 
-      <editable-textarea  value="This is text in textarea"  input-name="text-input" />
+        <editable-select
+            value="SK"
+            :default-show-input=false
+            :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
+            input-name="price"
+        />
 
-      <editable-textarea value="This is text in textarea 2" input-name="text-input"  :default-show-input=true />
-  </div>
+        <div class="w-full"/>
+
+        <editable-textarea value="This is text in textarea" input-name="text-input"/>
+
+        <editable-textarea value="This is text in textarea 2" input-name="text-input" :default-show-input=true />
+    </div>
 </template>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  display: flex;
-  justify-content: center;
-  flex-direction: row;
-  margin: 60px auto;
-  flex-flow: wrap;
+    font-family: Avenir, Helvetica, Arial, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    display: flex;
+    justify-content: center;
+    flex-direction: row;
+    margin: 60px auto;
+    flex-flow: wrap;
 }
-  .w-full {
+
+.w-full {
     width: 100%;
     padding: 30px;
     margin: 15px;
-  }
+}
 </style>
 <script>
-import EditableTextarea from "./components/EditableTextarea.vue";
-export default {
-    components: {EditableTextarea}
-}
+
 </script>

@@ -27,7 +27,6 @@ const emit = defineEmits(['posted'])
 const props = defineProps({
     value:  {type:String, default: ''},
     inputName: {type:String,default: 'editable-input'},
-    inputs: {type:Object,default: null},
     displayValue: {type: String, default:'(not set)'},
     defaultShowInput: {type: Boolean, default: false}
 });

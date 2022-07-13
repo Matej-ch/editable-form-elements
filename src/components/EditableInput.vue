@@ -8,7 +8,7 @@
       {{ state.editableValue || displayValue }}
     </div>
 
-    <div v-if="!options">
+    <div>
       <input
         v-show="state.active"
         ref="editableInput"
@@ -17,27 +17,6 @@
         class="form-control"
         @keyup.enter="submit"
       >
-    </div>
-
-    <div v-else>
-      <select
-        v-show="state.active"
-        ref="selectDropdown"
-        v-model="state.editableValue"
-        class="form-control"
-        @change="getSelectText"
-      >
-        <option value="">
-          Choose...
-        </option>
-        <option
-          v-for="(v,i) in options"
-          :key="options[i]"
-          :value="i"
-        >
-          {{ v }}
-        </option>
-      </select>
     </div>
 
     <div class="btn-wrapper">
@@ -70,15 +49,12 @@ const emit = defineEmits(['posted'])
 
 const props = defineProps({
     value:  {type:String, default: ''},
-    options: {type: Object, default:null},
     inputName: {type:String,default: 'editable-input'},
-    inputs: {type:Object,default: null},
     displayValue: {type: String, default:'(not set)'},
     defaultShowInput: {type: Boolean, default: false}
 });
 
 const editableInput = ref(null)
-const selectDropdown = ref(null)
 
 const state = reactive({
     editableValue: props.value,
@@ -89,55 +65,23 @@ const state = reactive({
 
 onMounted(() => {
     if(props.defaultShowInput) { state.active = true; }
-    if(selectDropdown.value) {
-        valueFromSelect();
-    }
+
 })
-
-function valueFromSelect() {
-    let optionsCollection = Array.from(selectDropdown.value.options);
-    let selectedOption = optionsCollection.find(option => {
-        return option.value === props.value;
-    });
-    state.editableValue = selectedOption.text;
-}
-
-function getSelectText() {
-    state.selectText = selectDropdown.value.options[selectDropdown.value.selectedIndex].text;
-}
 
 function deactivate() {
     state.active = false;
-    if(selectDropdown.value) {
-        valueFromSelect();
-    } else {
-        state.editableValue = props.value;
-    }
+    state.editableValue = props.value;
 }
 
 function submit() {
     const form = new FormData();
     form.append(props.inputName,state.editableValue);
 
-    let inputs = props.inputs;
-    Object.keys(inputs).forEach(function (index) {
-        form.append(index,inputs[index]);
-    });
-
     emit('posted',form)
 }
 
 function showInput() {
     state.active = true;
-
-    if(selectDropdown.value) {
-        for (let i = 0; i < selectDropdown.value.options.length; i++) {
-            if (selectDropdown.value.options[i].text === state.editableValue) {
-                state.editableValue = selectDropdown.value.options[i].value;
-                break;
-            }
-        }
-    }
 
     nextTick(() => {
         if(editableInput.value) {
