@@ -49,7 +49,7 @@
 
 import {onMounted, reactive, ref} from "vue";
 
-const emit = defineEmits(['posted'])
+const emit = defineEmits(['posted', 'deactivated'])
 
 const props = defineProps({
     value: {type: String, default: ''},
@@ -99,6 +99,7 @@ function getSelectText() {
 function deactivate() {
     state.active = false;
     valueFromSelect();
+    emit('deactivated');
 }
 
 function submit() {
@@ -113,6 +114,8 @@ function submit() {
     }
 
     emit('posted', form)
+    state.editableValue = props.options[selectDropdown.value.value];
+    state.active = false;
 }
 
 function showInput() {

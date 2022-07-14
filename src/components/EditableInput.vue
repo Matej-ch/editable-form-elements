@@ -71,7 +71,7 @@ onMounted(() => {
 function deactivate() {
     state.active = false;
     state.editableValue = props.value;
-    emit('deactivated')
+    emit('deactivated');
 }
 
 function submit() {
@@ -85,7 +85,7 @@ function submit() {
         })
     }
 
-    emit('posted', form)
+    emit('posted', form);
     state.active = false;
 }
 
