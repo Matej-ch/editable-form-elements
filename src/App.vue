@@ -1,46 +1,54 @@
 <template>
     <div id="app">
-        <editable-input
-            value="editable value"
-            input-name="price"
-        />
 
-        <div class="w-full"/>
+        <div style="display: grid;gap: 1rem;grid-template-columns: repeat(4,1fr);margin: 2rem 2rem;width: 100%">
+            <editable-input
+                value="editable value"
+                input-name="price"
+            />
 
-        <editable-input
-            :default-show-input=true
-            value=""
-            input-name="price"
-        />
+            <editable-input
+                :default-show-input=true
+                value="editable value"
+                input-name="price"
+            />
 
-        <div class="w-full"/>
+            <editable-input
+                value=""
+                input-name="price"
+            />
 
-        <editable-input
-            value=""
-            input-name="price"
-        />
+            <editable-input
+                value="Also hidden inputs here"
+                input-name="price">
+                <template v-slot:inputs>
+                    <input type="hidden" value="hello">
+                </template>
+            </editable-input>
+        </div>
 
-        <div class="w-full"/>
+        <div style="display: grid;gap: 1rem;grid-template-columns: repeat(4,1fr);margin: 2rem  2rem;width: 100%">
+            <editable-select
+                value="SK"
+                :default-show-input=true
+                :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
+                input-name="price"
+            />
 
-        <editable-select
-            value="SK"
-            :default-show-input=true
-            :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
-            input-name="price"
-        />
+            <editable-select
+                value="SK"
+                :default-show-input=false
+                :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
+                input-name="price"
+            />
+        </div>
 
-        <editable-select
-            value="SK"
-            :default-show-input=false
-            :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
-            input-name="price"
-        />
+        <div style="display: grid;gap: 1rem;grid-template-columns: repeat(4,1fr);margin: 2rem  2rem;width: 100%">
+            <editable-textarea value="This is text in textarea" input-name="text-input"/>
 
-        <div class="w-full"/>
+            <editable-textarea value="This is text in textarea 2" input-name="text-input" :default-show-input="true"/>
+        </div>
 
-        <editable-textarea value="This is text in textarea" input-name="text-input"/>
-
-        <editable-textarea value="This is text in textarea 2" input-name="text-input" :default-show-input=true />
     </div>
 </template>
 

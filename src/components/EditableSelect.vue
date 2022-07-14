@@ -1,5 +1,5 @@
 <template>
-    <div class="small-form-wrapper">
+    <div class="editable-input-wrapper">
         <div
             v-show="!state.active"
             class="editable"
@@ -29,24 +29,19 @@
             </select>
         </div>
 
-        <div class="btn-wrapper">
+        <div class="btn-wrapper" v-show="state.active">
             <button
-                v-show="state.active"
                 class="btn btn-primary"
                 @click="submit"
             >
                 &#x2713;
             </button>
             <button
-                v-show="state.active"
                 class="btn btn-default"
                 @click="deactivate"
             >
                 &#215;
             </button>
-        </div>
-        <div v-show="state.active">
-            {{ state.errorMsg }}
         </div>
     </div>
 </template>
@@ -70,7 +65,6 @@ const selectDropdown = ref(null)
 const state = reactive({
     editableValue: props.value,
     active:false,
-    errorMsg: '',
     selectText: null,
 });
 
@@ -139,7 +133,7 @@ function showInput() {
     display: flex;
     flex-direction: row;
 }
-.small-form-wrapper {
+.editable-input-wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;

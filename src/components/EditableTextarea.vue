@@ -1,5 +1,5 @@
 <template>
-    <div class="small-form-wrapper">
+    <div class="editable-input-wrapper">
 
         <div
             v-show="!state.active"
