@@ -6,7 +6,7 @@
             class="editable"
             @click="showInput"
         >
-            {{state.editableValue || displayValue}}
+            {{state.editableValue || emptyValue}}
         </div>
 
         <div>
@@ -30,7 +30,7 @@ const emit = defineEmits(['posted'])
 const props = defineProps({
     value: {type: String, default: ''},
     inputName: {type: String, default: 'editable-input'},
-    displayValue: {type: String, default: '(not set)'},
+    emptyValue: {type: String, default: '(not set)'},
     defaultShowInput: {type: Boolean, default: false}
 });
 
