@@ -8,12 +8,16 @@
             {{state.editableValue || emptyValue}}
         </div>
 
-        <div v-show="state.active">
+        <div v-show="state.active" style="position: relative">
             <textarea v-model="state.editableValue"
                       class="form-control"
                       ref="editableInput" :rows="rows" :cols="cols">
 
             </textarea>
+            <span v-show="maxLength > 0" class="length-span"
+                  :class="state.editableValue.length <= maxLength ? 'success' : 'danger' ">
+                {{state.editableValue.length}} / {{maxLength}}
+            </span>
         </div>
 
         <div class="btn-wrapper" v-show="state.active">
@@ -47,7 +51,8 @@ const props = defineProps({
     emptyValue: {type: String, default: '(not set)'},
     defaultShowInput: {type: Boolean, default: false},
     rows: {type: Number, default: 4},
-    cols: {type: Number, default: 10},
+    cols: {type: Number, default: 20},
+    maxLength: {type: Number, default: 0}
 });
 
 const editableInput = ref(null)
@@ -112,7 +117,7 @@ function submit() {
 
 .form-control {
     display: block;
-    padding: 4px 8px;
+    padding: 4px 8px 20px 8px;
     font-size: 1em;
     line-height: 1.42857143;
     color: #555;
@@ -169,4 +174,25 @@ function submit() {
     background-color: #e6e6e6;
     border-color: #adadad;
 }
+
+.length-span {
+    position: absolute;
+    bottom: 0;
+    margin-left: 5px;
+    margin-bottom: 5px;
+    font-size: 0.7rem;
+    color: white;
+    padding: 1px 3px;
+    font-weight: bold;
+    border-radius: 2px;
+}
+
+.length-span.success {
+    background-color: #28a745;
+}
+
+.length-span.danger {
+    background-color: #dc3545;
+}
+
 </style>

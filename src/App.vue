@@ -64,7 +64,11 @@
         <div style="display: grid;gap: 1rem;grid-template-columns: repeat(4,1fr);margin: 2rem  2rem;width: 100%">
             <editable-textarea value="This is text in textarea" input-name="text-input"/>
 
-            <editable-textarea value="This is text in textarea 2" input-name="text-input" :default-show-input="true"/>
+            <editable-textarea value="This is text in textarea 2"
+                               input-name="text-input"
+                               :default-show-input="true"
+                               :maxLength=256
+            />
 
             <editable-textarea value="" input-name="text-input"/>
         </div>
