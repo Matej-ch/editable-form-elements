@@ -5,7 +5,7 @@
             class="editable"
             @click="showInput"
         >
-            {{ state.editableValue || displayValue }}
+            {{state.editableValue || displayValue}}
         </div>
 
         <div>
@@ -24,7 +24,7 @@
                     :key="options[i]"
                     :value="i"
                 >
-                    {{ v }}
+                    {{v}}
                 </option>
             </select>
         </div>
@@ -43,34 +43,41 @@
                 &#215;
             </button>
         </div>
+
+        <div ref="inputs">
+            <slot name="inputs"></slot>
+        </div>
     </div>
 </template>
 
 <script setup>
 
-import {onMounted, reactive,ref} from "vue";
+import {onMounted, reactive, ref} from "vue";
 
 const emit = defineEmits(['posted'])
 
 const props = defineProps({
-    value:  {type:String, default: ''},
-    options: {type: Object, default:null},
-    inputName: {type:String,default: 'editable-input'},
-    displayValue: {type: String, default:'(not set)'},
+    value: {type: String, default: ''},
+    options: {type: Object, default: null},
+    inputName: {type: String, default: 'editable-input'},
+    displayValue: {type: String, default: '(not set)'},
     defaultShowInput: {type: Boolean, default: false}
 });
 
 const selectDropdown = ref(null)
+const inputs = ref(null)
 
 const state = reactive({
     editableValue: props.value,
-    active:false,
+    active: false,
     selectText: null,
 });
 
 onMounted(() => {
-    if(props.defaultShowInput) { state.active = true; }
-    if(selectDropdown.value) {
+    if (props.defaultShowInput) {
+        state.active = true;
+    }
+    if (selectDropdown.value) {
         valueFromSelect();
     }
 })
@@ -89,7 +96,7 @@ function getSelectText() {
 
 function deactivate() {
     state.active = false;
-    if(selectDropdown.value) {
+    if (selectDropdown.value) {
         valueFromSelect();
     } else {
         state.editableValue = props.value;
@@ -98,15 +105,22 @@ function deactivate() {
 
 function submit() {
     const form = new FormData();
-    form.append(props.inputName,state.editableValue);
+    form.append(props.inputName, state.editableValue);
 
-    emit('posted',form)
+    const inputEls = inputs.value.querySelectorAll('input');
+    if (inputEls) {
+        inputEls.forEach(input => {
+            form.append(input.name, input.value);
+        })
+    }
+
+    emit('posted', form)
 }
 
 function showInput() {
     state.active = true;
 
-    if(selectDropdown.value) {
+    if (selectDropdown.value) {
         for (let i = 0; i < selectDropdown.value.options.length; i++) {
             if (selectDropdown.value.options[i].text === state.editableValue) {
                 state.editableValue = selectDropdown.value.options[i].value;
@@ -133,11 +147,13 @@ function showInput() {
     display: flex;
     flex-direction: row;
 }
+
 .editable-input-wrapper {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
 }
+
 .form-control {
     display: block;
     height: 34px;
@@ -149,9 +165,10 @@ function showInput() {
     background-image: none;
     border: 1px solid #ccc;
     border-radius: 4px;
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
 }
+
 .btn {
     display: inline-block;
     font-weight: bold;
@@ -173,21 +190,25 @@ function showInput() {
     -ms-user-select: none;
     user-select: none;
 }
+
 .btn-default {
     color: #333;
     background-color: #fff;
     border-color: #ccc;
 }
+
 .btn-primary {
     color: #fff;
     background-color: #337ab7;
     border-color: #2e6da4;
 }
+
 .btn-primary:hover {
     color: #fff;
     background-color: #286090;
     border-color: #204d74;
 }
+
 .btn-default:hover {
     color: #333;
     background-color: #e6e6e6;

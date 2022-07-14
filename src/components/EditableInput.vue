@@ -31,7 +31,9 @@
             </button>
         </div>
 
-        <slot name="inputs"></slot>
+        <div ref="inputs">
+            <slot name="inputs"></slot>
+        </div>
 
     </div>
 </template>
@@ -50,6 +52,7 @@ const props = defineProps({
 });
 
 const editableInput = ref(null)
+const inputs = ref(null)
 
 const state = reactive({
     editableValue: props.value,
@@ -74,6 +77,14 @@ function deactivate() {
 function submit() {
     const form = new FormData();
     form.append(props.inputName, state.editableValue);
+
+    const inputEls = inputs.value.querySelectorAll('input');
+    if (inputEls) {
+        inputEls.forEach(input => {
+            form.append(input.name, input.value);
+        })
+    }
+
     emit('posted', form)
     state.active = false;
 }

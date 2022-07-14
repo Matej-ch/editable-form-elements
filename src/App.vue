@@ -21,7 +21,7 @@
             <editable-input
                 value="Also hidden inputs here"
                 input-name="price">
-                <template v-slot:inputs>
+                <template #inputs>
                     <input type="hidden" value="hello">
                 </template>
             </editable-input>
