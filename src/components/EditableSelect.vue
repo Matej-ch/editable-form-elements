@@ -3,8 +3,7 @@
         <div
             v-show="!state.active"
             class="editable"
-            @click="showInput"
-        >
+            @click="showInput">
             {{state.editableValue || displayValue}}
         </div>
 
@@ -14,16 +13,14 @@
                 ref="selectDropdown"
                 v-model="state.editableValue"
                 class="form-control"
-                @change="getSelectText"
-            >
+                @change="getSelectText">
                 <option value="">
                     Choose...
                 </option>
                 <option
                     v-for="(v,i) in options"
                     :key="options[i]"
-                    :value="i"
-                >
+                    :value="i">
                     {{v}}
                 </option>
             </select>
@@ -32,14 +29,12 @@
         <div class="btn-wrapper" v-show="state.active">
             <button
                 class="btn btn-primary"
-                @click="submit"
-            >
+                @click="submit">
                 &#x2713;
             </button>
             <button
                 class="btn btn-default"
-                @click="deactivate"
-            >
+                @click="deactivate">
                 &#215;
             </button>
         </div>
@@ -77,8 +72,15 @@ onMounted(() => {
     if (props.defaultShowInput) {
         state.active = true;
     }
-    if (selectDropdown.value) {
-        valueFromSelect();
+
+    if (props.value.length) {
+        state.editableValue = props.options[props.value];
+    } else {
+        state.editableValue = '';
+    }
+
+    if (props.defaultShowInput) {
+        state.editableValue = props.value;
     }
 })
 
@@ -96,11 +98,7 @@ function getSelectText() {
 
 function deactivate() {
     state.active = false;
-    if (selectDropdown.value) {
-        valueFromSelect();
-    } else {
-        state.editableValue = props.value;
-    }
+    valueFromSelect();
 }
 
 function submit() {

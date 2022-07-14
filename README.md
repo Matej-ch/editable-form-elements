@@ -1,25 +1,22 @@
-# Editable column 
+# Editable form elements for vue js 3
 
-### This is for vue js 3
+### Editable input
 
 ```html
-
-<editable-input display-value="(set...)" :inputs="{modelid:121,isEditable:1}" value='6900' input-name='price' url='/path/to/update'/>
-
 ```
 
-`url` url for updating column
+### Editable select
 
-`input-name` name of editable input for form
+```html
+```
 
-`inputs` object of additional form data
+### Editable textarea
 
-`value` value of column, if value is object
+```html
+```
 
-`options` if is object then, select is created
+### Editable checkbox
 
-`display-value` what to show if value is empty, default is _(not-set)_
+```html
+```
 
-`default-show-input` whether to show input on load, default is _false_
-
-![editable input](editable.jpg)
