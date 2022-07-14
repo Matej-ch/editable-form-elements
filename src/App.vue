@@ -65,6 +65,8 @@
             <editable-textarea value="This is text in textarea" input-name="text-input"/>
 
             <editable-textarea value="This is text in textarea 2" input-name="text-input" :default-show-input="true"/>
+
+            <editable-textarea value="" input-name="text-input"/>
         </div>
 
     </div>
