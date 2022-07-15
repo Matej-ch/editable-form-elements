@@ -7,12 +7,11 @@
             {{state.editableValue || emptyValue}}
         </div>
 
-        <div>
+        <div v-show="state.active">
             <input
-                v-show="state.active"
                 ref="editableInput"
                 v-model="state.editableValue"
-                type="text"
+                :type="type"
                 class="form-control"
                 @keyup.enter="submit">
         </div>
@@ -46,6 +45,7 @@ const emit = defineEmits(['posted', 'deactivated'])
 
 const props = defineProps({
     value: {type: String, default: ''},
+    type: {type: String, default: 'text'},
     inputName: {type: String, default: 'editable-input'},
     emptyValue: {type: String, default: '(not set)'},
     defaultShowInput: {type: Boolean, default: false}

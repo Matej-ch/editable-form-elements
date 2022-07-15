@@ -1,10 +1,11 @@
 <template>
     <div id="app">
 
-        <div style="display: grid;gap: 1rem;grid-template-columns: repeat(4,1fr);margin: 2rem 2rem;width: 100%">
+        <div class="grid">
             <editable-input
                 value="editable value"
                 input-name="price"
+                type="checkbox"
             />
 
             <editable-input
@@ -27,7 +28,7 @@
             </editable-input>
         </div>
 
-        <div style="display: grid;gap: 1rem;grid-template-columns: repeat(4,1fr);margin: 2rem  2rem;width: 100%">
+        <div class="grid">
             <editable-select
                 value="SK"
                 :default-show-input=false
@@ -61,7 +62,7 @@
 
         </div>
 
-        <div style="display: grid;gap: 1rem;grid-template-columns: repeat(4,1fr);margin: 2rem  2rem;width: 100%">
+        <div class="grid">
             <editable-textarea value="This is text in textarea" input-name="text-input"/>
 
             <editable-textarea value="This is text in textarea 2"
@@ -71,6 +72,18 @@
             />
 
             <editable-textarea value="" input-name="text-input"/>
+        </div>
+
+        <div class="grid">
+            <editable-checkbox :value=false>
+                <template #inputs>
+                    <input type="hidden" value="hello">
+                </template>
+            </editable-checkbox>
+
+            <editable-checkbox :value=true :default-show-input=false>
+            </editable-checkbox>
+
         </div>
 
     </div>
@@ -88,12 +101,19 @@
     flex-flow: wrap;
 }
 
-.w-full {
-    width: 100%;
-    padding: 30px;
-    margin: 15px;
+.grid {
+    display: grid;
+    gap: 1rem;
+    grid-template-columns: repeat(4, 1fr);
+    margin: 2rem 2rem;
+    width: 100%
 }
+
 </style>
 <script>
+import EditableCheckbox from "./components/EditableCheckbox.vue";
 
+export default {
+    components: {EditableCheckbox}
+}
 </script>

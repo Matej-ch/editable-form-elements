@@ -117,7 +117,7 @@ function submit() {
 
 .form-control {
     display: block;
-    padding: 4px 8px 20px 8px;
+    padding: 4px 8px;
     font-size: 1em;
     line-height: 1.42857143;
     color: #555;
@@ -178,6 +178,7 @@ function submit() {
 .length-span {
     position: absolute;
     bottom: 0;
+    right: -50px;
     margin-left: 5px;
     margin-bottom: 5px;
     font-size: 0.7rem;

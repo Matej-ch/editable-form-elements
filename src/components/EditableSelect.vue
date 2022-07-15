@@ -7,9 +7,8 @@
             {{state.editableValue || emptyValue}}
         </div>
 
-        <div>
+        <div v-show="state.active">
             <select
-                v-show="state.active"
                 ref="selectDropdown"
                 v-model="state.editableValue"
                 class="form-control"
