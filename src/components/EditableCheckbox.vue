@@ -9,13 +9,25 @@
             </span>
         </div>
 
-        <div v-show="state.active">
+        <div v-show="state.active" style="display: flex">
             <input
                 ref="editableInput"
                 v-model="state.editableValue"
                 type="checkbox"
                 class="form-control"
-                @keyup.enter="submit">
+                @click="submit">
+
+            <div class="btn-wrapper" v-show="state.active">
+                <span
+                    style="padding: 5px;cursor: pointer"
+                    @click="deactivate">
+                    &#215;
+                </span>
+            </div>
+        </div>
+
+        <div ref="inputs">
+            <slot name="inputs"></slot>
         </div>
     </div>
 </template>
@@ -32,7 +44,6 @@ const props = defineProps({
     defaultShowInput: {type: Boolean, default: false},
 });
 
-const selectDropdown = ref(null)
 const inputs = ref(null)
 
 const state = reactive({
@@ -49,21 +60,9 @@ onMounted(() => {
     state.editableValue = props.options[+props.value];
 })
 
-function valueFromSelect() {
-    let optionsCollection = Array.from(selectDropdown.value.options);
-    let selectedOption = optionsCollection.find(option => {
-        return option.value === props.value;
-    });
-    state.editableValue = selectedOption.text;
-}
-
-function getSelectText() {
-    state.selectText = selectDropdown.value.options[selectDropdown.value.selectedIndex].text;
-}
 
 function deactivate() {
     state.active = false;
-    valueFromSelect();
     emit('deactivated');
 }
 
@@ -71,6 +70,7 @@ function submit() {
     const form = new FormData();
     form.append(props.inputName, state.editableValue);
 
+    console.log(props.inputName, state.editableValue);
     const inputEls = inputs.value.querySelectorAll('input');
     if (inputEls) {
         inputEls.forEach(input => {
@@ -79,7 +79,6 @@ function submit() {
     }
 
     emit('posted', form)
-    state.editableValue = props.options[selectDropdown.value.value];
     state.active = false;
 }
 
