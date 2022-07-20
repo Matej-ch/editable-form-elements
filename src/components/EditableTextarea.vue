@@ -16,7 +16,8 @@
             </textarea>
             <span v-show="maxLength > 0" class="length-span"
                   :class="state.editableValue.length <= maxLength ? 'success' : 'danger' ">
-                {{state.editableValue.length}} / {{maxLength}}
+
+                <span>{{state.editableValue.length}}</span>/<span>{{maxLength}}</span>
             </span>
         </div>
 
@@ -175,19 +176,6 @@ function submit() {
     border-color: #adadad;
 }
 
-.length-span {
-    position: absolute;
-    bottom: 0;
-    right: -50px;
-    margin-left: 5px;
-    margin-bottom: 5px;
-    font-size: 0.7rem;
-    color: white;
-    padding: 1px 3px;
-    font-weight: bold;
-    border-radius: 2px;
-}
-
 .length-span.success {
     background-color: #28a745;
 }
@@ -196,4 +184,14 @@ function submit() {
     background-color: #dc3545;
 }
 
+.length-span {
+    font-size: 0.7rem;
+    color: white;
+    padding: 1px 3px;
+    font-weight: bold;
+    border-radius: 2px;
+    display: flex;
+    flex-direction: row;
+    gap: 5px;
+}
 </style>
