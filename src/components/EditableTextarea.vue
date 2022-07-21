@@ -48,7 +48,7 @@ const emit = defineEmits(['posted', 'deactivated'])
 
 const props = defineProps({
     value: {type: String, default: ''},
-    inputName: {type: String, default: 'editable-input'},
+    name: {type: String, default: 'editable-input'},
     emptyValue: {type: String, default: '(not set)'},
     defaultShowInput: {type: Boolean, default: false},
     rows: {type: Number, default: 4},
@@ -89,6 +89,14 @@ function deactivate() {
 
 function submit() {
     const form = new FormData();
+    form.append(props.name, state.editableValue);
+
+    const inputEls = inputs.value.querySelectorAll('input');
+    if (inputEls) {
+        inputEls.forEach(input => {
+            form.append(input.name, input.value);
+        })
+    }
 
     emit('posted', form);
     state.active = false;

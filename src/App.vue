@@ -4,24 +4,24 @@
         <div class="grid">
             <editable-input
                 value="editable value"
-                input-name="price"
+                name="price"
                 type="checkbox"
             />
 
             <editable-input
                 :default-show-input=true
                 value="editable value"
-                input-name="price"
+                name="price"
             />
 
             <editable-input
                 value=""
-                input-name="price"
+                name="price"
             />
 
             <editable-input
                 value="Also hidden inputs here"
-                input-name="price">
+                name="price">
                 <template #inputs>
                     <input type="hidden" value="hello">
                 </template>
@@ -33,26 +33,26 @@
                 value="SK"
                 :default-show-input=false
                 :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
-                input-name="price"
+                name="price"
             />
 
             <editable-select
                 value="SK"
                 :default-show-input=true
                 :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
-                input-name="price"
+                name="price"
             />
 
             <editable-select
                 value=""
                 :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
-                input-name="price"
+                name="price"
             />
 
             <editable-select
                 value=""
                 :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
-                input-name="price"
+                name="price"
             >
                 <template #inputs>
                     <input type="hidden" value="hello">
@@ -63,15 +63,15 @@
         </div>
 
         <div class="grid">
-            <editable-textarea value="This is text in textarea" input-name="text-input"/>
+            <editable-textarea value="This is text in textarea" name="text-input"/>
 
             <editable-textarea value="This is text in textarea 2"
-                               input-name="text-input"
+                               name="text-input"
                                :default-show-input="true"
                                :maxLength=256
             />
 
-            <editable-textarea value="" input-name="text-input"/>
+            <editable-textarea value="" name="text-input"/>
         </div>
 
         <div class="grid">
