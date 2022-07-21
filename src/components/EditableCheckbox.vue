@@ -19,13 +19,19 @@
 
                 <input
                     ref="editableInput"
-                    v-model="state.editableValue"
+                    v-model="value"
                     type="checkbox"
                     @click="submit"
                 >
-                <span class="toggle__switch sm"/>
+                <span class="toggle__switch sm" :class="{'bg-off': !value, 'bg-on': value}"/>
             </label>
 
+            <span
+                v-show="state.active"
+                style="cursor: pointer;margin-left: 5px"
+                @click="deactivate">
+                &#215;
+            </span>
         </div>
 
         <div ref="inputs">
@@ -51,7 +57,6 @@ const inputs = ref(null)
 const state = reactive({
     editableValue: props.value,
     active: false,
-    selectText: null,
 });
 
 onMounted(() => {
@@ -72,7 +77,6 @@ function submit() {
     const form = new FormData();
     form.append(props.inputName, state.editableValue);
 
-    console.log(props.inputName, state.editableValue);
     const inputEls = inputs.value.querySelectorAll('input');
     if (inputEls) {
         inputEls.forEach(input => {
@@ -81,7 +85,8 @@ function submit() {
     }
 
     emit('posted', form)
-    //state.active = false;
+    state.editableValue = props.options[+!props.value];
+    setTimeout(() => state.active = false, 1000);
 }
 
 function showInput() {
