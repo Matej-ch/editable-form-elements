@@ -2,20 +2,28 @@
 
 ### Editable input
 
+Example
+
 ```html
 ```
 
 ### Editable select
+
+Example
 
 ```html
 ```
 
 ### Editable textarea
 
+Example
+
 ```html
 ```
 
 ### Editable checkbox
+
+Example
 
 ```html
 ```
