@@ -87,6 +87,38 @@
 
         </div>
 
+        <div class="grid">
+            <editable-rating
+                :rating="4"
+                :max="5"
+                :step="0.5"
+            />
+
+            <editable-rating
+                :rating="0"
+                :max="5"
+                :step="0.5"
+            />
+
+            <editable-rating
+                :rating="5"
+                :max="5"
+                :step="0.5"
+            />
+
+            <editable-rating
+                :rating="2.5"
+                :max="5"
+                :step="0.5"
+            />
+
+            <editable-rating
+                :rating="7"
+                :max="10"
+                :step="1"
+            />
+        </div>
+
     </div>
 </template>
 
@@ -112,9 +144,5 @@
 
 </style>
 <script>
-import EditableCheckbox from "./components/EditableCheckbox.vue";
 
-export default {
-    components: {EditableCheckbox}
-}
 </script>
