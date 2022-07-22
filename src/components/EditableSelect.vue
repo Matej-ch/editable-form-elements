@@ -55,7 +55,7 @@ const props = defineProps({
     options: {type: Object, default: null},
     name: {type: String, default: 'editable-input'},
     emptyValue: {type: String, default: '(not set)'},
-    defaultShowInput: {type: Boolean, default: false}
+    showInput: {type: Boolean, default: false}
 });
 
 const selectDropdown = ref(null)
@@ -68,7 +68,7 @@ const state = reactive({
 });
 
 onMounted(() => {
-    if (props.defaultShowInput) {
+    if (props.showInput) {
         state.active = true;
     }
 
@@ -78,7 +78,7 @@ onMounted(() => {
         state.editableValue = '';
     }
 
-    if (props.defaultShowInput) {
+    if (props.showInput) {
         state.editableValue = props.value;
     }
 })

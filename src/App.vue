@@ -5,11 +5,11 @@
             <editable-input
                 value="editable value"
                 name="price"
-                type="checkbox"
+                type="number"
             />
 
             <editable-input
-                :default-show-input=true
+                :show-input=true
                 value="editable value"
                 name="price"
             />
@@ -17,6 +17,7 @@
             <editable-input
                 value=""
                 name="price"
+                empty-value="Empty value"
             />
 
             <editable-input
@@ -31,14 +32,14 @@
         <div class="grid">
             <editable-select
                 value="SK"
-                :default-show-input=false
+                :show-input=false
                 :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
                 name="price"
             />
 
             <editable-select
                 value="SK"
-                :default-show-input=true
+                :show-input=true
                 :options="{SK:'Slovakia',CZ:'Czech republic',PL:'Poland'}"
                 name="price"
             />
@@ -67,7 +68,7 @@
 
             <editable-textarea value="This is text in textarea 2"
                                name="text-input"
-                               :default-show-input="true"
+                               :show-input="true"
                                :maxLength=256
             />
 
@@ -81,7 +82,7 @@
                 </template>
             </editable-checkbox>
 
-            <editable-checkbox :value=true :default-show-input=false>
+            <editable-checkbox :value=true :show-input=false>
             </editable-checkbox>
 
         </div>

@@ -48,7 +48,7 @@ const props = defineProps({
     type: {type: String, default: 'text'},
     name: {type: String, default: 'editable-input'},
     emptyValue: {type: String, default: '(not set)'},
-    defaultShowInput: {type: Boolean, default: false}
+    showInput: {type: Boolean, default: false}
 });
 
 const editableInput = ref(null)
@@ -62,7 +62,7 @@ const state = reactive({
 });
 
 onMounted(() => {
-    if (props.defaultShowInput) {
+    if (props.showInput) {
         state.active = true;
     }
 

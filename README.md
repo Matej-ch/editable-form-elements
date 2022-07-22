@@ -5,11 +5,11 @@
 **_Available props_**
 
 ```
-value
-type
-name
-emptyValue
-defaultShowInput
+value -> value of input
+type -> type of input
+name -> name of input send in posted event
+empty-value -> Custom value (string) to show when no `value` prop is set
+show-input -> Boolean value, whether to show value or input on load
 ```
 
 Example
@@ -30,11 +30,11 @@ Example
 **_Available props_**
 
 ```
-value
-options
-name
-emptyValue
-defaultShowInput
+value -> value of input
+options -> Select options object
+name -> name of input send in posted event
+empty-value -> Custom value (string) to show when no `value` prop is set
+show-input -> Boolean value, whether to show value or input on load
 ```
 
 Example
@@ -56,13 +56,13 @@ Example
 **_Available props_**
 
 ```
-value
-name
-emptyValue
-defaultShowInput
-rows
-cols
-maxLength
+value -> value of input
+name -> name of input send in posted event
+empty-value -> Custom value (string) to show when no `value` prop is set
+show-input -> Boolean value, whether to show value or input on load
+rows -> columns of textarea
+cols -> rows of textarea
+maxLength -> Max lenght of string
 ```
 
 Example
@@ -79,10 +79,10 @@ Example
 **_Available props_**
 
 ```
-value
-options
-name
-defaultShowInput
+value -> value of input
+options -> checkbox options with two values
+name -> name of input send in posted event
+show-input -> Boolean value, whether to show value or input on load
 ```
 
 Example
